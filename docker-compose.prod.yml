@@ -6,6 +6,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -16,7 +18,7 @@ services:
     networks: [internal]
 
   backend:
-    image: ghcr.io/ha9011/harness_framework-backend:latest
+    image: ghcr.io/ha9011/cozy-cafe-english-backend:latest
     restart: unless-stopped
     depends_on:
       postgres:
@@ -36,7 +38,7 @@ services:
     networks: [internal]
 
   frontend:
-    image: ghcr.io/ha9011/harness_framework-frontend:latest
+    image: ghcr.io/ha9011/cozy-cafe-english-frontend:latest
     restart: unless-stopped
     depends_on:
       - backend
